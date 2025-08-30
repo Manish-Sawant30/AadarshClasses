@@ -1,22 +1,13 @@
-# Use OpenJDK image
-FROM openjdk:21-jdk-slim
-
-# Set working directory
+# ---- Build Stage ----
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
-
-# Copy Maven wrapper and pom.xml
-COPY mvnw .
-COPY .mvn .mvn
 COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Download dependencies
-RUN ./mvnw dependency:go-offline
-
-# Copy source code
-COPY src src
-
-# Package the app
-RUN ./mvnw clean package -DskipTests
-
-# Run the Spring Boot app (adjust JAR name if different)
-CMD ["java", "-jar", "target/aadarshproject-0.0.1-SNAPSHOT.jar"]
+# ---- Run Stage ----
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
