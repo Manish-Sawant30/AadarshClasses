@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Contact Us - Aadarsh Classes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    
+    <!-- Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.min.css">
+    
+    <style>
+        /* ===== GLOBAL THEME (glass, matching index.html) ===== */
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #7209b7;
+            --success: #4cc9f0;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --dark-bg: rgba(0, 0, 0, 0.7);
+        }
+
+        body {
+            background: linear-gradient(var(--dark-bg), var(--dark-bg)), url('backloginpage.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== NAVBAR (glass) ===== */
+        .navbar {
+            background: rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: 0.3s;
+        }
+        .navbar-dark .navbar-nav .nav-link:hover,
+        .navbar-dark .navbar-nav .nav-link.active {
+            color: var(--success);
+            transform: translateY(-2px);
+        }
+
+        /* quote styling */
+        .navbar-quote span {
+            color: #ffdd57 !important;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .navbar-quote span span {
+            color: #00d4ff !important;
+        }
+
+        /* dropdown menus glass */
+        .dropdown-menu {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .dropdown-item {
+            color: white;
+            transition: 0.2s;
+        }
+        .dropdown-item:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* submenu support (desktop hover + mobile click) */
+        .dropdown-submenu {
+            position: relative;
+        }
+        .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -1px;
+            display: none;
+            position: absolute;
+        }
+        @media (min-width: 992px) {
+            .dropdown-submenu:hover > .dropdown-menu {
+                display: block;
+            }
+        }
+        @media (max-width: 991px) {
+            .dropdown-submenu .dropdown-menu {
+                position: static !important;
+                margin-left: 1rem;
+                margin-top: 0;
+                box-shadow: none;
+                display: none;
+            }
+        }
+
+        /* ===== CONTACT HEADER (glass) ===== */
+        .contact-header {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 70px 0 50px;
+            color: white;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .contact-header h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .contact-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* ===== CONTACT CARDS (glass) ===== */
+        .contact-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            height: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+            background: rgba(255,255,255,0.15);
+        }
+        .card-icon {
+            font-size: 3rem;
+            color: #ffc107;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .contact-card:hover .card-icon {
+            transform: scale(1.2) rotate(5deg);
+            color: var(--success);
+        }
+        .contact-card .card-title {
+            color: white;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+        .contact-card .card-text {
+            color: rgba(255,255,255,0.8);
+        }
+        .contact-card h5 {
+            color: #ffc107 !important;
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+        }
+        .btn-outline-primary {
+            border: 2px solid var(--primary);
+            color: white;
+            background: transparent;
+            border-radius: 50px;
+            padding: 8px 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-primary:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        /* ===== CONTACT FORM CARD (glass) ===== */
+        .form-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.6);
+        }
+        .form-card .card-body {
+            padding: 3rem;
+        }
+        .form-card h2 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 5px black;
+        }
+        .form-label {
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+        }
+        .form-control {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 15px;
+            padding: 12px;
+            transition: all 0.3s;
+        }
+        .form-control:focus {
+            background: rgba(255,255,255,0.15);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+            color: white;
+        }
+        .form-control::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: none;
+            border-radius: 50px;
+            padding: 12px 40px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(67, 97, 238, 0.7);
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #ccc;
+            padding: 1.5rem 0;
+            margin-top: auto;
+        }
+        footer a {
+            color: #ffc107;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        footer a:hover {
+            color: white;
+        }
+
+        /* ===== CLOCK ===== */
+        #clock {
+            background: rgba(0,0,0,0.3);
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: #ffdd57 !important;
+        }
+
+        /* ===== MOBILE FRIENDLY ===== */
+        @media (max-width: 768px) {
+            .contact-header {
+                padding: 50px 0 30px;
+            }
+            .contact-header h1 {
+                font-size: 2.5rem;
+            }
+            .card-icon {
+                font-size: 2.5rem;
+            }
+            .form-card .card-body {
+                padding: 1.5rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .contact-card .card-title {
+                font-size: 1.5rem;
+            }
+            .btn-primary {
+                width: 100%;
+            }
+        }
+        .navbar {
+  position: relative;
+  z-index: 1050;
+}
+
+.dropdown-menu {
+  z-index: 2000 !important;
+}
+
+    </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR (Admission dropdown removed, Contact added last) ===== -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <img src="Logo.jpg" alt="Logo" width="120" height="100" style="object-fit: contain; filter: drop-shadow(0 4px 8px black);">
+        </a>
+
+        <!-- 🔥 Attractive Quote (hidden on mobile) -->
+        <div class="navbar-quote ms-3 flex-grow-1 d-none d-lg-block">
+            <span>
+                <i class="bi bi-quote-left"></i> Discipline is the bridge between 
+                <span style="color: #00d4ff;">goals</span> and 
+                <span style="color: #28df99;">achievement</span>
+                <i class="bi bi-quote-right"></i>
+            </span>
+        </div>
+
+        <!-- Toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation Links (Admission removed, Contact last) -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav align-items-lg-center">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+
+                <!-- About Us dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown">About Us</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="About.html">About Founder</a></li>
+                        <li><a class="dropdown-item" href="AboutInstitute.html">About Institute</a></li>
+                    </ul>
+                </li>
+
+                <!-- Activities -->
+                <li class="nav-item"><a class="nav-link" href="Activity.html">Activities</a></li>
+                <!-- Gallery -->
+                <li class="nav-item"><a class="nav-link" href="Gallery.html">Gallery</a></li>
+                <!-- Contact (active) -->
+                <li class="nav-item"><a class="nav-link active" href="Contact.html">Contact</a></li>
+            </ul>
+
+            <!-- Live clock -->
+            <div id="clock" class="ms-3 fw-bold"></div>
+        </div>
+    </div>
+</nav>
+
+<!-- Header (glass) -->
+<div class="contact-header">
+    <div class="container">
+        <h1>Get In Touch With Us</h1>
+        <p>We're here to help and answer any questions you might have. Reach out to us through any of the following methods and we'll respond as soon as possible.</p>
+    </div>
+</div>
+
+<!-- Contact Cards (glass) -->
+<div class="container py-5">
+    <div class="row g-4 justify-content-center">
+        <!-- Phone Card -->
+        <div class="col-md-4">
+            <div class="contact-card card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="card-icon">
+                        <i class="bi bi-telephone-fill"></i>
+                    </div>
+                    <h4 class="card-title">Phone Support</h4>
+                    <p class="card-text mb-4">Speak directly with our support team during business hours.</p>
+                    <h5 class="mb-3">+91 9960937056</h5>
+                    <a href="tel:+919960937056" class="btn btn-outline-primary">Call Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Email Card -->
+        <div class="col-md-4">
+            <div class="contact-card card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="card-icon">
+                        <i class="bi bi-envelope-fill"></i>
+                    </div>
+                    <h4 class="card-title">Email Us</h4>
+                    <p class="card-text mb-4">Send us an email and we'll get back to you within 24 hours.</p>
+                    <h5 class="mb-3">sigmalinecomp@gmail.com</h5>
+                    <a href="mailto:sigmalinecomp@gmail.com" class="btn btn-outline-primary">Send Email</a>
+                </div>
+            </div>
+        </div>
+
+<!-- Visit Card -->
+<div class="col-md-4">
+    <div class="contact-card card h-100">
+        <div class="card-body text-center p-4">
+            <div class="card-icon">
+                <i class="bi bi-geo-alt-fill"></i>
+            </div>
+            <h4 class="card-title">Visit Us</h4>
+            <p class="card-text mb-4">Come visit our campus for a personal consultation.</p>
+            <h5 class="mb-3">At Post: Nampur<br>Tal: Baglan, Dist: Nashik</h5>
+
+            <a href="https://www.google.com/maps?q=20.72850,74.30803"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn-outline-primary">
+               View on Map
+            </a>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Footer -->
+<footer>
+    <div class="container text-center">
+        &copy; 2025 Aadarsh Classes. All rights reserved.
+    </div>
+</footer>
+
+
+<!-- Clock Script -->
+<script>
+    function updateClock() {
+        const now = new Date();
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        const clockEl = document.getElementById('clock');
+        if (clockEl) {
+            clockEl.innerHTML = now.toLocaleDateString('en-US', options) + " | " + now.toLocaleTimeString('en-US');
+        }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+</script>
+
+<!-- Submenu toggle for mobile -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const submenuToggles = document.querySelectorAll('.dropdown-submenu > a');
+        
+        submenuToggles.forEach(function (toggle) {
+            toggle.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                submenuToggles.forEach(function (el) {
+                    if (el !== toggle) {
+                        const otherMenu = el.nextElementSibling;
+                        if (otherMenu) otherMenu.style.display = 'none';
+                    }
+                });
+
+                const submenu = toggle.nextElementSibling;
+                if (submenu) {
+                    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+                }
+            });
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.dropdown-submenu')) {
+                submenuToggles.forEach(function (toggle) {
+                    const submenu = toggle.nextElementSibling;
+                    if (submenu) submenu.style.display = 'none';
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

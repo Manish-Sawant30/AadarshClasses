@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Activities - Aadarsh Classes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  
+  <!-- Bootstrap 5 + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <style>
+    /* ===== GLOBAL THEME (glass, matching index.html) ===== */
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #7209b7;
+      --success: #4cc9f0;
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --dark-bg: rgba(0, 0, 0, 0.7);
+    }
+
+    body {
+      background: linear-gradient(var(--dark-bg), var(--dark-bg)), url('backloginpage.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== NAVBAR (glass) ===== */
+    .navbar {
+      background: rgba(0, 0, 0, 0.5) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      transition: 0.3s;
+    }
+    .navbar-dark .navbar-nav .nav-link:hover,
+    .navbar-dark .navbar-nav .nav-link.active {
+      color: var(--success);
+      transform: translateY(-2px);
+    }
+
+    /* quote styling */
+    .navbar-quote span {
+      color: #ffdd57 !important;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .navbar-quote span span {
+      color: #00d4ff !important;
+    }
+
+    /* dropdown menus glass */
+    .dropdown-menu {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .dropdown-item {
+      color: white;
+      transition: 0.2s;
+    }
+    .dropdown-item:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* submenu support (desktop hover + mobile click) */
+    .dropdown-submenu {
+      position: relative;
+    }
+    .dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-top: -1px;
+      display: none;
+      position: absolute;
+    }
+    @media (min-width: 992px) {
+      .dropdown-submenu:hover > .dropdown-menu {
+        display: block;
+      }
+    }
+    @media (max-width: 991px) {
+      .dropdown-submenu .dropdown-menu {
+        position: static !important;
+        margin-left: 1rem;
+        margin-top: 0;
+        box-shadow: none;
+        display: none;
+      }
+    }
+
+    /* ===== SECTION HEADER (glass) ===== */
+    section {
+      background: transparent;
+      padding: 60px 0;
+      text-align: center;
+    }
+    section h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.7);
+      color: white;
+    }
+    section p {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* ===== CARDS (glass) ===== */
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      transition: all 0.4s ease;
+      color: white;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+      background: rgba(255,255,255,0.12);
+    }
+
+    .card-title-custom {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffc107, #ff6a00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      border-bottom: 2px solid rgba(255,255,255,0.2);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .card-text {
+      color: rgba(255,255,255,0.95);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+    .text-muted em {
+      color: rgba(255,255,255,0.7) !important;
+    }
+
+    /* ===== CAROUSEL - IMPROVED RESPONSIVE FITTING ===== */
+    .carousel {
+      width: 100%;
+      overflow: hidden;
+    }
+    
+    .carousel-inner {
+      width: 100%;
+      /* Height is now responsive - will be determined by aspect ratio */
+      min-height: auto;
+    }
+    
+    .carousel-item {
+      width: 100%;
+    }
+    
+    .carousel-item img {
+      width: 100%;
+      height: auto; /* Let height adjust naturally */
+      max-height: 70vh; /* Maximum height on large screens */
+      object-fit: contain; /* Show full image without cropping */
+      object-position: center;
+      background-color: #1a1a1a;
+    }
+    
+    /* Responsive adjustments */
+    @media (min-width: 1200px) {
+      .carousel-item img {
+        max-height: 600px; /* Fixed max height on large screens */
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .carousel-item img {
+        max-height: 500px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .carousel-item img {
+        max-height: 400px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .carousel-item img {
+        max-height: 300px;
+      }
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 50%;
+      padding: 10px;
+    }
+    .carousel-indicators [data-bs-target] {
+      background-color: #ffc107;
+    }
+
+    /* ===== ENRICHING CARD (first small card) ===== */
+    .enrich-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 25px;
+      color: white;
+    }
+    .enrich-card .card-title {
+      color: #ffc107;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #ccc;
+      font-size: 0.95rem;
+      padding: 1.2rem 0;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    /* ===== MOBILE FRIENDLY ===== */
+    @media (max-width: 768px) {
+      section h1 {
+        font-size: 2.2rem;
+      }
+      .card-title-custom {
+        font-size: 1.5rem;
+      }
+      .card-text {
+        font-size: 0.95rem;
+      }
+    }
+
+    /* clock styling */
+    #clock {
+      background: rgba(0,0,0,0.3);
+      padding: 4px 10px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      color: #ffdd57 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR (Admission dropdown removed, Contact added last) ===== -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="Logo.jpg" alt="Logo" width="120" height="100" style="object-fit: contain; filter: drop-shadow(0 4px 8px black);">
+      </a>
+
+      <!-- 🔥 Attractive Quote (hidden on mobile) -->
+      <div class="navbar-quote ms-3 flex-grow-1 d-none d-lg-block">
+        <span>
+          <i class="bi bi-quote-left"></i> Discipline is the bridge between 
+          <span style="color: #00d4ff;">goals</span> and 
+          <span style="color: #28df99;">achievement</span>
+          <i class="bi bi-quote-right"></i>
+        </span>
+      </div>
+
+      <!-- Toggler -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navigation Links (Admission removed, Contact last) -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+
+          <!-- About Us dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">About Us</a>
+            <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+              <li><a class="dropdown-item" href="About.html">About Founder</a></li>
+              <li><a class="dropdown-item" href="AboutInstitute.html">About Institute</a></li>
+            </ul>
+          </li>
+
+          <!-- Activities (active) -->
+          <li class="nav-item"><a class="nav-link active" href="Activity.html">Activities</a></li>
+          <!-- Gallery -->
+          <li class="nav-item"><a class="nav-link" href="Gallery.html">Gallery</a></li>
+          <!-- Contact (new, last) -->
+          <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
+        </ul>
+
+        <!-- Live clock -->
+        <div id="clock" class="ms-3 fw-bold"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Activities Header (glass) -->
+  <section>
+    <div class="container">
+      <h1 class="display-4 fw-bold">Extra-Curricular Activities</h1>
+      <p class="lead">Celebrating patriotism, culture, creativity, and unity!</p>
+    </div>
+  </section>
+
+  <!-- Enriching Class Life Card (glass) -->
+  <div class="container my-4">
+    <div class="enrich-card p-4">
+      <h4 class="card-title text-center text-warning">Enriching Class Life</h4>
+      <p class="card-text">
+        At Aadarsh Classes, we believe in nurturing patriotism, culture, and unity through our thoughtfully celebrated events. Our extra-curricular calendar includes national celebrations like Independence Day (15th August) and Republic Day (26th January), which instill a deep sense of pride and respect for the nation among students.
+        <br><br>
+        We also organize vibrant festivals such as the Ganpati Mahotsav, promoting tradition and togetherness in a joyful atmosphere. The Annual Gathering is a much-awaited occasion that showcases students' talents in music, dance, drama, and more—encouraging confidence, stage presence, and creative expression.
+        <br><br>
+        A special highlight of our calendar is the "Student of the Year" award—an inspiring initiative to recognize students who demonstrate all-round excellence in academics, discipline, leadership, and character.
+        <br>
+        These events not only enrich students' school life but also foster discipline, unity, and a strong cultural foundation.
+      </p>
+    </div>
+  </div>
+
+  <!-- Activity Cards with Slideshows (glass cards) - Images now perfectly fitted on all devices -->
+  <div class="container py-3">
+    <!-- Ganesh Mahotsav -->
+    <div class="card mb-5">
+      <div id="carouselGanesh" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselGanesh" data-bs-slide-to="0" class="active"></button>
+          <button type="button" data-bs-target="#carouselGanesh" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#carouselGanesh" data-bs-slide-to="2"></button>
+          <button type="button" data-bs-target="#carouselGanesh" data-bs-slide-to="3"></button>
+          <button type="button" data-bs-target="#carouselGanesh" data-bs-slide-to="4"></button>
+          <button type="button" data-bs-target="#carouselGanesh" data-bs-slide-to="5"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active"><img src="GaneshPic/Ganesh4.jpg" alt="Ganesh 1"></div>
+          <div class="carousel-item"><img src="GaneshPic/Ganesh3.jpg" alt="Ganesh 2"></div>
+          <div class="carousel-item"><img src="GaneshPic/Ganesh1.JPG" alt="Ganesh 3"></div>
+          <div class="carousel-item"><img src="GaneshPic/Ganesh5 (1).JPG" alt="Ganesh 4"></div>
+          <div class="carousel-item"><img src="GaneshPic/Ganesh5 (2).JPG" alt="Ganesh 5"></div>
+          <div class="carousel-item"><img src="GaneshPic/Ganesh5 (3).JPG" alt="Ganesh 6"></div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselGanesh" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselGanesh" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title-custom">Ganesh Mahotsav</h5>
+        <p class="card-text">Aadarsh Classes celebrates <strong>Ganpati Mahotsav</strong> with great devotion and unity. The classroom is beautifully decorated with fresh flowers, an effort led by our talented girl students. During the celebration, a group of girls respectfully recite 7–8 <strong>Aartis</strong>, creating a divine atmosphere. For each Aarti, the chief guests are the families of our 10th standard students. Boys enthusiastically play the <strong>tabla</strong> and blow the <strong>shankh</strong>. After the Aarti, fun-filled <strong>comedy events</strong> bring laughter and joy to all.</p>
+        <p class="card-text text-muted"><em>Ganpati Bappa Morya!</em></p>
+      </div>
+    </div>
+
+    <!-- Republic Day -->
+    <div class="card mb-5">
+      <div id="carouselRepublic" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselRepublic" data-bs-slide-to="0" class="active"></button>
+          <button type="button" data-bs-target="#carouselRepublic" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#carouselRepublic" data-bs-slide-to="2"></button>
+          <button type="button" data-bs-target="#carouselRepublic" data-bs-slide-to="3"></button>
+          <button type="button" data-bs-target="#carouselRepublic" data-bs-slide-to="4"></button>
+          <button type="button" data-bs-target="#carouselRepublic" data-bs-slide-to="5"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active"><img src="Republic/republic1.JPG" alt="Republic 1"></div>
+          <div class="carousel-item"><img src="Republic/republic2.JPG" alt="Republic 2"></div>
+          <div class="carousel-item"><img src="Republic/republic3.JPG" alt="Republic 3"></div>
+          <div class="carousel-item"><img src="Republic/republic4.JPG" alt="Republic 4"></div>
+          <div class="carousel-item"><img src="Republic/republic5.jpg" alt="Republic 5"></div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselRepublic" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselRepublic" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title-custom">Republic Day</h5>
+        <p class="card-text">At Aadarsh Classes, we honor Republic Day with deep respect. The flag is proudly hoisted by a respected army personnel. All students wear a uniform dress code. A special moment is when one girl represents Bharat Mata. The classroom is transformed with lights, flowers, and balloons.</p>
+        <p class="card-text text-muted"><em>Jai Hind! Jai Bharat!</em></p>
+      </div>
+    </div>
+
+    <!-- Independence Day -->
+    <div class="card mb-5">
+      <div id="carouselIndependence" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselIndependence" data-bs-slide-to="0" class="active"></button>
+          <button type="button" data-bs-target="#carouselIndependence" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#carouselIndependence" data-bs-slide-to="2"></button>
+          <button type="button" data-bs-target="#carouselIndependence" data-bs-slide-to="3"></button>
+          <button type="button" data-bs-target="#carouselIndependence" data-bs-slide-to="4"></button>
+          <button type="button" data-bs-target="#carouselIndependence" data-bs-slide-to="5"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active"><img src="Independance/Inde1.JPG" alt="Independence 1"></div>
+          <div class="carousel-item"><img src="Independance/Inde2.jpg" alt="Independence 2"></div>
+          <div class="carousel-item"><img src="Independance/Inde3.JPG" alt="Independence 3"></div>
+          <div class="carousel-item"><img src="Independance/Inde4.JPG" alt="Independence 4"></div>
+          <div class="carousel-item"><img src="Independance/Inde5.JPG" alt="Independence 5"></div>
+          <div class="carousel-item"><img src="Independance/Inde6.jpg" alt="Independence 6"></div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndependence" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselIndependence" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title-custom">Independence Day</h5>
+        <p class="card-text">Independence Day is celebrated with pride. The classroom is adorned with lights, flowers, and balloons. A rally moves through Nampur with a live band playing patriotic songs. Students walk in perfect discipline, carrying the spirit of freedom.</p>
+        <p class="card-text text-muted"><em>Vande Mataram!</em></p>
+      </div>
+    </div>
+
+    <!-- Annual Gathering -->
+    <div class="card mb-5">
+      <div id="carouselGathering" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselGathering" data-bs-slide-to="0" class="active"></button>
+          <button type="button" data-bs-target="#carouselGathering" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#carouselGathering" data-bs-slide-to="2"></button>
+          <button type="button" data-bs-target="#carouselGathering" data-bs-slide-to="3"></button>
+          <button type="button" data-bs-target="#carouselGathering" data-bs-slide-to="4"></button>
+          <button type="button" data-bs-target="#carouselGathering" data-bs-slide-to="5"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active"><img src="Gathering/gathering1.JPG" alt="Gathering 1"></div>
+          <div class="carousel-item"><img src="Gathering/gathering2.JPG" alt="Gathering 2"></div>
+          <div class="carousel-item"><img src="Gathering/gathering3.JPG" alt="Gathering 3"></div>
+          <div class="carousel-item"><img src="Gathering/gathering4.JPG" alt="Gathering 4"></div>
+          <div class="carousel-item"><img src="Gathering/gathering5.JPG" alt="Gathering 5"></div>
+          <div class="carousel-item"><img src="Gathering/gathering6.JPG" alt="Gathering 6"></div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselGathering" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselGathering" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title-custom">Annual Gathering</h5>
+        <p class="card-text">A grand event showcasing talents from 5th to 10th standard in dance, drama, and more. Prize distribution by 10th boys, Trust Trophy for long-standing students, and the secret reveal of Student of the Year. Everything from invitation cards to trophies is crafted by students.</p>
+        <p class="card-text text-muted"><em>Where memories are made, and excellence is honored.</em></p>
+      </div>
+    </div>
+
+    <!-- Student of the Year -->
+    <div class="card mb-5">
+      <div id="carouselSOY" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselSOY" data-bs-slide-to="0" class="active"></button>
+          <button type="button" data-bs-target="#carouselSOY" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#carouselSOY" data-bs-slide-to="2"></button>
+          <button type="button" data-bs-target="#carouselSOY" data-bs-slide-to="3"></button>
+          <button type="button" data-bs-target="#carouselSOY" data-bs-slide-to="4"></button>
+          <button type="button" data-bs-target="#carouselSOY" data-bs-slide-to="5"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active"><img src="SOY/SOY1.JPG" alt="SOY 1"></div>
+          <div class="carousel-item"><img src="SOY/SOY2.JPG" alt="SOY 2"></div>
+          <div class="carousel-item"><img src="SOY/SOY3.JPG" alt="SOY 3"></div>
+          <div class="carousel-item"><img src="SOY/SOY4.jpg" alt="SOY 4"></div>
+          <div class="carousel-item"><img src="SOY/SOY5.png" alt="SOY 5"></div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselSOY" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselSOY" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title-custom">Student of the Year</h5>
+        <p class="card-text">The most prestigious award recognizing academic brilliance, discipline, and contribution. Based on years at the institute, cultural participation, marks, attendance, and notebook marks. Top 10 shortlisted, audience poll to select Top 5, then a final anonymous paper evaluation. The winner is known only to Sharad Sawant Sir and revealed at the event.</p>
+        <p class="card-text text-muted"><em>An award that inspires, a moment remembered forever.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p class="mb-0">© 2025 Aadarsh Classes | All rights reserved</p>
+  </footer>
+
+  <!-- Clock Script -->
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+      const clockEl = document.getElementById('clock');
+      if (clockEl) {
+        clockEl.innerHTML = now.toLocaleDateString('en-US', options) + " | " + now.toLocaleTimeString('en-US');
+      }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+
+  <!-- Submenu toggle for mobile -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const submenuToggles = document.querySelectorAll('.dropdown-submenu > a');
+      
+      submenuToggles.forEach(function (toggle) {
+        toggle.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          submenuToggles.forEach(function (el) {
+            if (el !== toggle) {
+              const otherMenu = el.nextElementSibling;
+              if (otherMenu) otherMenu.style.display = 'none';
+            }
+          });
+
+          const submenu = toggle.nextElementSibling;
+          if (submenu) {
+            submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+          }
+        });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.dropdown-submenu')) {
+          submenuToggles.forEach(function (toggle) {
+            const submenu = toggle.nextElementSibling;
+            if (submenu) submenu.style.display = 'none';
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

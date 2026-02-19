@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Institute | Aadarsh Classes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  
+  <!-- Bootstrap 5 + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <style>
+    /* ===== GLOBAL THEME (matching index.html with EntryLogin glass) ===== */
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #7209b7;
+      --success: #4cc9f0;
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --dark-bg: rgba(0, 0, 0, 0.7);
+    }
+
+    body {
+      background: linear-gradient(var(--dark-bg), var(--dark-bg)), url('backloginpage.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== NAVBAR (glass) ===== */
+    .navbar {
+      background: rgba(0, 0, 0, 0.5) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      transition: 0.3s;
+    }
+    .navbar-dark .navbar-nav .nav-link:hover,
+    .navbar-dark .navbar-nav .nav-link.active {
+      color: var(--success);
+      transform: translateY(-2px);
+    }
+
+    /* quote styling */
+    .navbar-quote span {
+      color: #ffdd57 !important;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .navbar-quote span span {
+      color: #00d4ff !important;
+    }
+
+    /* dropdown menus glass */
+    .dropdown-menu {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .dropdown-item {
+      color: white;
+      transition: 0.2s;
+    }
+    .dropdown-item:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* submenu support (desktop hover + mobile click) */
+    .dropdown-submenu {
+      position: relative;
+    }
+    .dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-top: -1px;
+      display: none;
+      position: absolute;
+    }
+    @media (min-width: 992px) {
+      .dropdown-submenu:hover > .dropdown-menu {
+        display: block;
+      }
+    }
+    @media (max-width: 991px) {
+      .dropdown-submenu .dropdown-menu {
+        position: static !important;
+        margin-left: 1rem;
+        margin-top: 0;
+        box-shadow: none;
+        display: none;
+      }
+    }
+
+    /* ===== QUOTE ABOVE IMAGE (glass & animated) ===== */
+   .quote-block {
+  text-align: center;
+  padding: 60px 0 30px;
+}
+
+    .fade-in-quote {
+      font-family: 'Georgia', serif;
+      font-size: 1.8rem;
+      font-style: italic;
+      line-height: 1.4;
+      font-weight: 500;
+      background: linear-gradient(90deg, #ffd966, #b8d0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      animation: fadeInUp 1.2s ease-out;
+    }
+    .quote-mark {
+      font-size: 2.2rem;
+      color: #ffc107;
+      font-weight: bold;
+      -webkit-text-fill-color: initial;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== INSTITUTE IMAGE ===== */
+    .profile-image {
+      border-radius: 30px;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.6);
+      transition: transform 0.5s ease, box-shadow 0.5s;
+      max-width: 100%;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    .profile-image:hover {
+      transform: scale(1.03);
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.8);
+    }
+
+    /* ===== ABOUT INSTITUTE CARD (glass) ===== */
+    .about-institute {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 30px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+      border-left: 6px solid #ffc107;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .about-institute:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+      background: rgba(255,255,255,0.12);
+    }
+    .about-institute h2 {
+      font-weight: 700;
+      color: #ffc107;
+      margin-bottom: 1.2rem;
+      text-shadow: 0 2px 5px black;
+    }
+    .about-institute p {
+      color: rgba(255,255,255,0.95);
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+    .about-institute strong {
+      color: #ffdd57;
+    }
+
+    /* ===== VISION & MISSION CARDS (glass) ===== */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      padding: 1.8rem;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      transition: all 0.4s ease;
+      height: 100%;
+      color: white;
+    }
+    .glass-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.7);
+      background: rgba(255,255,255,0.15);
+    }
+    .glass-card .card-title {
+      font-weight: 700;
+      color: #ffc107;
+      margin-bottom: 1.2rem;
+      font-size: 1.8rem;
+    }
+    .glass-card .card-text {
+      color: rgba(255,255,255,0.9);
+      line-height: 1.7;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #ccc;
+      font-size: 0.95rem;
+      padding: 1.2rem 0;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    /* ===== MOBILE FRIENDLY ===== */
+    @media (max-width: 768px) {
+      .fade-in-quote {
+        font-size: 1.3rem;
+      }
+      .quote-mark {
+        font-size: 1.6rem;
+      }
+      .about-institute {
+        padding: 1.5rem;
+      }
+      .about-institute h2 {
+        font-size: 1.8rem;
+      }
+      .glass-card .card-title {
+        font-size: 1.5rem;
+      }
+    }
+    @media (max-width: 576px) {
+      .profile-image {
+        border-radius: 20px;
+      }
+      .about-institute p {
+        font-size: 0.95rem;
+      }
+    }
+
+    /* clock styling (optional) */
+    #clock {
+      background: rgba(0,0,0,0.3);
+      padding: 4px 10px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      color: #ffdd57 !important;
+    }
+    
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR (Admission dropdown removed, Contact added last) ===== -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img src="Logo.jpg" alt="Logo" width="120" height="100" style="object-fit: contain; filter: drop-shadow(0 4px 8px black);">
+    </a>
+
+    <!-- 🔥 Attractive Quote (hidden on mobile) -->
+    <div class="navbar-quote ms-3 flex-grow-1 d-none d-lg-block">
+      <span>
+        <i class="bi bi-quote-left"></i> Discipline is the bridge between 
+        <span style="color: #00d4ff;">goals</span> and 
+        <span style="color: #28df99;">achievement</span>
+        <i class="bi bi-quote-right"></i>
+      </span>
+    </div>
+
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navigation Links (Admission dropdown removed, Contact added last) -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+
+        <!-- About Us dropdown (keep, mark active) -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">About Us</a>
+          <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+            <li><a class="dropdown-item" href="About.html">About Founder</a></li>
+            <li><a class="dropdown-item" href="AboutInstitute.html">About Institute</a></li>
+          </ul>
+        </li>
+
+        <!-- Activities -->
+        <li class="nav-item"><a class="nav-link" href="Activity.html">Activities</a></li>
+        <!-- Gallery -->
+        <li class="nav-item"><a class="nav-link" href="Gallery.html">Gallery</a></li>
+        <!-- Contact (new, last) -->
+        <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
+      </ul>
+
+      <!-- Live clock -->
+      <div id="clock" class="ms-3 fw-bold"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- QUOTE ABOVE IMAGE (glass styled) -->
+<div class="container quote-block">
+  <blockquote class="fade-in-quote">
+    <span class="quote-mark">“</span>
+    30 Years of Trust, Dedication, and Achievement.
+    <span class="quote-mark">”</span>
+  </blockquote>
+</div>
+
+<!-- INSTITUTE IMAGE -->
+<div class="container text-center my-4">
+  <img src="aadarsh classes piv.png" alt="Institute Image" class="profile-image img-fluid" style="max-height: 400px;">
+</div>
+
+<!-- ABOUT INSTITUTE (glass card) -->
+<div class="container about-institute my-5">
+  <h2>📚 About Our Institute</h2>
+  <p>
+    Welcome to <strong>Aadarsh Classes</strong>, a proud institution founded by <strong>Mr. Sharad Laxmanrao Sawant</strong>, built on a legacy of <strong>30 years</strong> of dedication, discipline, and academic excellence.<br><br>
+    Established with a clear vision to shape young minds, Aadarsh Classes is known for its <strong>strict discipline</strong>, focused teaching methods, and strong moral values. We provide quality education from <strong>5th to 10th standard</strong>, with special attention to core science subjects: <strong>Mathematics, Biology, Chemistry, and Physics</strong>.<br><br>
+    Under the leadership of Mr. Sawant Sir, every student receives personal guidance and a structured learning environment that encourages both academic growth and personal development.<br><br>
+    Beyond academics, Aadarsh Classes also promotes cultural and patriotic values. We proudly host various events such as:<br>
+    <strong>
+      • 26th January – Republic Day<br>
+      • Ganpati Mahotsav<br>
+      • 15th August – Independence Day<br>
+      • Annual Gathering<br>
+    </strong><br>
+    And our most awaited event, <strong>Student of the Year</strong>, where we recognize outstanding performance and character.<br><br>
+    At Aadarsh Classes, we don’t just teach — we build future leaders with values.
+  </p>
+</div>
+
+<!-- VISION & MISSION (glass cards) -->
+<div class="container text-center mb-5">
+  <div class="row g-4 justify-content-center">
+    <div class="col-md-5">
+      <div class="glass-card p-4">
+        <h2 class="card-title">👁️ Our Vision</h2>
+        <p class="card-text">Our vision is to shape students into well-rounded, successful individuals who lead meaningful and disciplined lives. We believe that true success lies not just in academic achievement but in becoming a good human being — one who is respectful, capable, and socially responsible. At Aadarsh Classes, we envision a future where every student thrives with knowledge, culture, and character.</p>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="glass-card p-4">
+        <h2 class="card-title">🎯 Our Mission</h2>
+        <p class="card-text">At Aadarsh Classes, our mission is to develop all-rounder students — individuals who excel not only in academics but also grow through values, discipline, and cultural involvement. We aim to provide a balanced education where students gain deep knowledge in Mathematics, Biology, Chemistry, and Physics, while also participating in programs that enhance confidence, creativity, and leadership. We strive to create responsible, focused, and self-motivated learners prepared for every challenge in life.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p class="mb-0">© 2025 Aadarsh Classes | All rights reserved</p>
+</footer>
+
+<!-- CLOCK SCRIPT (optional) -->
+<script>
+  function updateClock() {
+    const now = new Date();
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    const clockEl = document.getElementById('clock');
+    if (clockEl) {
+      clockEl.innerHTML = now.toLocaleDateString('en-US', options) + " | " + now.toLocaleTimeString('en-US');
+    }
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+</script>
+
+<!-- SUBMENU TOGGLE FOR MOBILE (ensures submenus work with click) -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Handle submenu toggles on mobile (dropdown-submenu)
+    const submenuToggles = document.querySelectorAll('.dropdown-submenu > a');
+    
+    submenuToggles.forEach(function (toggle) {
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Close other submenus
+        submenuToggles.forEach(function (el) {
+          if (el !== toggle) {
+            const otherMenu = el.nextElementSibling;
+            if (otherMenu) otherMenu.style.display = 'none';
+          }
+        });
+
+        // Toggle current
+        const submenu = toggle.nextElementSibling;
+        if (submenu) {
+          submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+        }
+      });
+    });
+
+    // Close submenus when clicking outside
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.dropdown-submenu')) {
+        submenuToggles.forEach(function (toggle) {
+          const submenu = toggle.nextElementSibling;
+          if (submenu) submenu.style.display = 'none';
+        });
+      }
+    });
+  });
+</script>
+
+<!-- Note: Ensure images (Logo.jpg, backloginpage.jpg, aadarsh classes piv.png) exist in the same folder -->
+</body>
+</html>

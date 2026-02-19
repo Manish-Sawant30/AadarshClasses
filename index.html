@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home | Aadarsh Classes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <!-- Bootstrap 5 + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Font Awesome 6 (for icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <style>
+    /* ========== ENTRYLOGIN.THEME GLOBAL ========== */
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #7209b7;
+      --success: #4cc9f0;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --text-light: #8d99ae;
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('backloginpage.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      transition: none; /* no dark mode toggle needed, we keep consistent theme */
+    }
+
+    /* ----- DARK MODE ADAPTATION (minimal, keep consistency) ----- */
+    /* but we still allow dark mode classes if needed, though base is already darkish */
+    .dark-mode {
+      /* not necessary, but we keep variables */
+    }
+
+    /* ========== NAVBAR (glass effect) ========== */
+    .navbar {
+      background: rgba(0, 0, 0, 0.5) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      transition: 0.3s;
+    }
+    .navbar-dark .navbar-nav .nav-link:hover {
+      color: var(--success);
+      transform: translateY(-2px);
+    }
+
+    /* quote color update for better visibility */
+    .navbar-quote span {
+      color: #ffdd57 !important;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .navbar-quote span span {
+      color: #00d4ff !important;
+    }
+
+    /* clock */
+    #clock {
+      color: #ffdd57 !important;
+      font-weight: 600;
+      background: rgba(0,0,0,0.3);
+      padding: 4px 10px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+    }
+
+    /* animated heading */
+    .animated-heading {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 5vw;
+      text-align: center;
+      margin: 40px 0;
+      color: white;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.7);
+      animation: fadeInUp 1.5s ease-out forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    @media (min-width: 768px) {
+      .animated-heading {
+        font-size: 48px;
+      }
+    }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* zoom image container */
+    .zoom-image {
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: transform 0.8s ease;
+    }
+    .zoom-image:hover {
+      transform: scale(1.03);
+    }
+
+    /* ========== CLASSROOM CARDS (EntryLogin theme) ========== */
+    .classroom-program-section {
+      padding: 3rem 0;
+      background: transparent; /* let body background show through */
+    }
+
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 2.5rem;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      position: relative;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .section-title span {
+      color: var(--success);
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+
+    .section-subtitle {
+      color: rgba(255,255,255,0.8);
+      font-size: 1.1rem;
+    }
+
+    /* Program cards with glassmorphism + colored top borders */
+    .program-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      height: 100%;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
+      border-top: 4px solid transparent;
+      display: flex;
+      flex-direction: column;
+    }
+    .program-card:nth-child(1) { animation-delay: 0.2s; border-top-color: #e74c3c; }
+    .program-card:nth-child(2) { animation-delay: 0.4s; border-top-color: #2ecc71; }
+    .program-card:nth-child(3) { animation-delay: 0.6s; border-top-color: #9b59b6; }
+    .program-card:nth-child(4) { animation-delay: 0.8s; border-top-color: #f39c12; }
+
+    .program-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.6);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .card-icon {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(5px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      z-index: 2;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.3s ease;
+    }
+    .program-card:hover .card-icon {
+      transform: scale(1.1) rotate(10deg);
+      background: var(--primary);
+      color: white;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      background: rgba(0,0,0,0.2);
+      padding: 15px;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+    }
+    .program-card:hover .card-img {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 20px 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      color: white;
+    }
+    .card-content h3 {
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: white;
+      font-size: 1.5rem;
+      text-shadow: 0 2px 4px black;
+    }
+    .card-content p {
+      color: rgba(255,255,255,0.9);
+      font-size: 0.95rem;
+      margin-bottom: 0;
+      flex-grow: 1;
+    }
+
+    /* testimonial card with glass */
+    .testimonial-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 25px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      margin: 30px auto;
+      max-width: 800px;
+      text-align: center;
+      color: white;
+    }
+    .testimonial-card h4 {
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    /* footer */
+    footer {
+      background: rgba(0, 0, 0, 0.7) !important;
+      backdrop-filter: blur(5px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: white !important;
+    }
+
+    /* ========== FLOATING CONTACT BUTTON (from EntryLogin, but refined) ========== */
+    .contact-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+    .contact-float a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #4361ee, #7209b7, #4cc9f0);
+      background-size: 200% 200%;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 60px;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      font-size: 1rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
+      animation: gradientShift 6s ease infinite;
+    }
+    .contact-float a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 15px 35px rgba(67, 97, 238, 0.6);
+    }
+    .contact-float i {
+      font-size: 1.3rem;
+      animation: ring 2s infinite;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes ring {
+      0% { transform: rotate(0); }
+      10% { transform: rotate(15deg); }
+      20% { transform: rotate(-15deg); }
+      30% { transform: rotate(10deg); }
+      40% { transform: rotate(-10deg); }
+      50% { transform: rotate(5deg); }
+      60% { transform: rotate(-5deg); }
+      70% { transform: rotate(0); }
+      100% { transform: rotate(0); }
+    }
+
+    
+    /* mobile tweaks */
+    @media (max-width: 576px) {
+      .animated-heading {
+        font-size: 12vw;
+        margin: 20px 0;
+      }
+      .section-title {
+        font-size: 1.8rem;
+      }
+      .card-img {
+        height: 150px;
+      }
+      .contact-float a {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* dropdown menus adapt to glass */
+    .dropdown-menu {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .dropdown-item {
+      color: white;
+    }
+    .dropdown-item:hover {
+      background: var(--primary);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== NAVBAR (Admission dropdown removed, Contact added) ========== -->
+<nav class="navbar navbar-expand-lg navbar-dark" id="mainNavbar">
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img src="Logo.jpg" alt="Logo" width="120" height="100" style="object-fit: contain; filter: drop-shadow(0 4px 8px black);">
+    </a>
+
+    <!-- 🔥 Attractive Quote (unchanged, hidden on mobile) -->
+    <div class="navbar-quote ms-3 flex-grow-1 d-none d-lg-block">
+      <span>
+        <i class="bi bi-quote-left"></i> Discipline is the bridge between 
+        <span style="color: #00d4ff;">goals</span> and 
+        <span style="color: #28df99;">achievement</span>
+        <i class="bi bi-quote-right"></i>
+      </span>
+    </div>
+
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Nav links -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav align-items-lg-center">
+        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+
+        <!-- About Us dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown">About Us</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="About.html">About Founder</a></li>
+            <li><a class="dropdown-item" href="AboutInstitute.html">About Institute</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link" href="Activity.html">Activities</a></li>
+        <li class="nav-item"><a class="nav-link" href="Gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
+      </ul>
+
+      <!-- Live clock -->
+      <div id="clock" class="ms-3 fw-bold"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ANIMATED HEADING -->
+<div class="container">
+  <div class="animated-heading">Welcome to the Site of Aadarsh Classes...!!</div>
+</div>
+
+<!-- BACKGROUND IMAGE with glassy zoom effect -->
+<div class="container mb-4">
+  <div class="zoom-image">
+    <img src="HomeBackground.jpg" class="img-fluid rounded" alt="Home Background" style="width:100%;">
+  </div>
+</div>
+
+<!-- CLASSROOM PROGRAM SECTION (ENROLL BUTTONS REMOVED) -->
+<div class="container classroom-program-section py-5">
+  <div class="text-center mb-5">
+    <h2 class="section-title">Our <span>Classroom</span> Programs</h2>
+    <p class="section-subtitle">Comprehensive learning for academic excellence</p>
+  </div>
+
+  <div class="row g-4 justify-content-center">
+    <!-- Mathematics Card -->
+    <div class="col-md-6 col-lg-3">
+      <div class="program-card">
+        <div class="card-icon"><i class="fas fa-square-root-alt"></i></div>
+        <img src="math.png" class="card-img" alt="Mathematics">
+        <div class="card-content">
+          <h3 align="center">Mathematics</h3>
+          <p align="center">Master problem-solving skills with our expert faculty</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Biology Card -->
+    <div class="col-md-6 col-lg-3">
+      <div class="program-card">
+        <div class="card-icon"><i class="fas fa-dna"></i></div>
+        <img src="biology.jpg" class="card-img" alt="Biology">
+        <div class="card-content">
+          <h3 align="center">Biology</h3>
+          <p align="center">Explore the wonders of life and living organisms</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chemistry Card -->
+    <div class="col-md-6 col-lg-3">
+      <div class="program-card">
+        <div class="card-icon"><i class="fas fa-atom"></i></div>
+        <img src="chemistry.jpg" class="card-img" alt="Chemistry">
+        <div class="card-content">
+          <h3 align="center">Chemistry</h3>
+          <p align="center">Discover the building blocks of matter and reactions</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Physics Card -->
+    <div class="col-md-6 col-lg-3">
+      <div class="program-card">
+        <div class="card-icon"><i class="fas fa-meteor"></i></div>
+        <img src="physics.png" class="card-img" alt="Physics">
+        <div class="card-content">
+          <h3 align="center">Physics</h3>
+          <p align="center">Understand the fundamental laws of the universe</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS (glass) -->
+<div class="testimonial-card">
+  <h4>✨ Aadarsh Classes</h4>
+  <p>"Shaping bright futures with discipline, dedication, and excellence."</p>
+  <p><strong>— Empowering minds, inspiring success since our very first day</strong></p>
+</div>
+
+<!-- FOOTER -->
+<footer class="text-white text-center p-3">
+  <p class="mb-0">© 2025 Aadarsh Classes | All rights reserved</p>
+</footer>
+
+<!-- FLOATING CONTACT BUTTON (EntryLogin theme style) -->
+<div class="contact-float">
+  <a href="Contact.html">
+    <i class="bi bi-telephone-fill"></i> Contact Us
+  </a>
+</div>
+
+
+<script>
+
+
+  // ========== CLOCK ==========
+  function updateClock() {
+    const now = new Date();
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    document.getElementById('clock').innerHTML =
+        now.toLocaleDateString('en-US', options) + " | " +
+        now.toLocaleTimeString('en-US');
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+</script>
+
+<!-- note: images should be present: Logo.jpg, backloginpage.jpg, HomeBackground.jpg, math.png, biology.jpg, chemistry.jpg, physics.png. If missing, replace with placeholders -->
+</body>
+</html>
